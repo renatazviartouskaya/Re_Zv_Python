@@ -1,0 +1,27 @@
+# Import the random module for generating random numbers
+import random
+
+# Generate 100 random numbers between 0 and 1000
+numbers = [random.randint(0, 1000) for _ in range(100)]
+
+# Manually sort the numbers using bubble sort
+for i in range(len(numbers)):
+    for j in range(len(numbers) - 1):
+        # If the current number is bigger than the next number
+        if numbers[j] > numbers[j + 1]:
+            # Swap the numbers
+            numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+
+# Split the numbers into even and odd numbers
+even_numbers = [num for num in numbers if num % 2 == 0]
+odd_numbers = [num for num in numbers if num % 2 != 0]
+
+# Calculate the average of the even numbers
+average_even = sum(even_numbers) / len(even_numbers) if even_numbers else 0
+
+# Calculate the average of the odd numbers
+average_odd = sum(odd_numbers) / len(odd_numbers) if odd_numbers else 0
+
+# Print the average of the even and odd numbers
+print(f"Average of even numbers: {average_even}")
+print(f"Average of odd numbers: {average_odd}")
