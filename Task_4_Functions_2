@@ -1,0 +1,48 @@
+import random  # Module for working with random numbers
+import string  # Module for working with constant strings and string functions
+
+# Function to generate a list of random dictionaries
+# Enter parameters - range for number of dictionaries
+def generate_random_dicts(a, b):
+    dict_list = []  # Empty list to hold dictionaries
+
+    # Loop to create random number of dictionaries
+    for _ in range(random.randint(a, b)):
+        my_dict = {}  # Empty dictionary for each iteration
+
+        # Another loop to create a random number of keys - lower-case alphabet letter  and values - numbers 0-100
+        for _ in range(random.randint(a, b)):
+            key = random.choice(string.ascii_lowercase)  # Generate random key from a lower-case alphabet letter
+            value = random.randint(0, 100)  # Generate a random value between 0 and 100
+            my_dict[key] = value  # Add the key-value pair to the dictionary
+
+        dict_list.append(my_dict)  # Add the dictionary to the list of dictionaries
+
+    return dict_list  # Return the list of dictionaries at the end of the function
+
+
+# Function for processing the list of dictionaries
+def process_dict_list(dict_list):
+    tracker_dict = {}  # Empty dictionary to track key-value pairs and appearances
+
+    # Loop through each dictionary and index/position (starting from 1)
+    for i, d in enumerate(dict_list, start=1):
+        # Get each key-value pair in the dictionary
+        for k, v in d.items():
+            if k not in tracker_dict:  # If seeing this key for the first time
+                tracker_dict[k] = [v, i, 1]  # Store its value, index, and set counter to 1
+            else:  # If key has been seen before
+                if v > tracker_dict[k][0]:  # If its new value is larger
+                    tracker_dict[k][0:2] = [v, i]  # Update stored value and index
+
+                tracker_dict[k][2] += 1  # Increment the appearance counter by 1
+
+    # Create the final dictionary in requested format
+    final_dict = {f"{k}_{v[1]}" if v[2] > 1 else k: v[0] for k, v in tracker_dict.items()}
+    return final_dict  # Return the final dictionary at the end of the function
+
+dict_list = generate_random_dicts(2, 10)  # Create a list of dictionaries by calling the function
+print(dict_list)  # Print out the list of dictionaries
+
+final_dict = process_dict_list(dict_list)  # Create a dictionary by calling the function and passing the list as argument
+print(final_dict)  # Print out the final dictionary
