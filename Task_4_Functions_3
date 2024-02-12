@@ -1,0 +1,65 @@
+import re
+
+# Function to remove empty lines
+def remove_empty_lines(text):
+    return '\n'.join([paragraph for paragraph in text.split('\n') if paragraph.strip()])
+
+# Function to normalize text to lowercase
+def normalize_text(text):
+    return text.lower()
+
+# Function to capitalize each sentence in the text
+def capitalize_sentences(normalized_text):
+    return re.sub(r'([A-z][^.!?]*[.!?])', lambda m: m.group()[0].upper() + m.group()[1:], normalized_text)
+
+# Function to create a sentence with last words of each existing sentences
+def create_new_sentence(text1):
+    sentences = text1.split('.')
+    last_words = [s.strip().split(' ')[-1] for s in sentences[:-1]]
+    new_sentence = ' '.join(last_words) + '.'
+    return new_sentence.capitalize()
+
+# Function to add new sentence to the text after needed word
+def add_sentence(text1, new_sentence, word):
+    key_word = word
+    if key_word in text1:
+        return text1.replace(key_word, key_word + '\n' + new_sentence)
+
+# Function to correct the misspellings
+def correct_misspellings(text, wrong_word, right_word):
+    return text.replace(wrong_word, right_word)
+
+# Function to count whitespace characters in the text
+def count_whitespace(text):
+    return text.count(' ') + text.count('\n') + text.count('\t')
+
+# Input text
+text = """
+homEwork:
+  tHis iz your homeWork, copy these Text to variable.
+
+
+
+  You NEED TO normalize it fROM letter CASEs point oF View. also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph.
+
+
+
+  it iZ misspeLLing here. fix“iZ” with correct “is”, but ONLY when it Iz a mistAKE.
+
+
+
+  last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
+"""
+
+# Using the functions
+text = remove_empty_lines(text)
+normalized_text = normalize_text(text)
+text1 = capitalize_sentences(normalized_text)
+new_sentence = create_new_sentence(text1)
+text2 = add_sentence(text1, new_sentence, 'paragraph.')
+fixed_text = correct_misspellings(text2, ' iz ', ' is ')
+whitespace_count = count_whitespace(fixed_text)
+
+# Printing the results
+print(fixed_text)
+print('\nWhitespace count: ', whitespace_count)
