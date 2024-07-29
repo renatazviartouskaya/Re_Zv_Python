@@ -51,15 +51,17 @@ homEwork:
   last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
 """
 
+if __name__ == "__main__":
+
 # Using the functions
-text = remove_empty_lines(text)
-normalized_text = normalize_text(text)
-text1 = capitalize_sentences(normalized_text)
-new_sentence = create_new_sentence(text1)
-text2 = add_sentence(text1, new_sentence, 'paragraph.')
-fixed_text = correct_misspellings(text2, ' iz ', ' is ')
-whitespace_count = count_whitespace(fixed_text)
+    text = remove_empty_lines(text)
+    normalized_text = normalize_text(text)
+    text1 = capitalize_sentences(normalized_text)
+    new_sentence = create_new_sentence(text1)
+    text2 = add_sentence(text1, new_sentence, 'paragraph.')
+    fixed_text = correct_misspellings(text2, ' iz ', ' is ')
+    whitespace_count = count_whitespace(fixed_text)
 
 # Printing the results
-print(fixed_text)
-print('\nWhitespace count: ', whitespace_count)
+    print(fixed_text)
+    print('\nWhitespace count: ', whitespace_count)
